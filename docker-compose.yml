@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgres:
+    build: ./postgres  
+    image: postgres:15
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: daily_lunch_menu
+    ports:
+      - "5432:5432"
+    volumes:
+      - /home/ridwan/docker-data:/var/lib/postgresql/data
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+    tty: true  
+    environment:
+      DATABASE_URL: postgres://myuser:mypassword@postgres:5432/daily_lunch_menu
+    volumes:
+      - ./backend:/app    
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./frontend:/app
+    
