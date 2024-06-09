@@ -10,6 +10,8 @@ services:
       POSTGRES_DB: daily_lunch_menu
     ports:
       - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data  
     
   backend:
     build: ./backend
@@ -31,5 +33,5 @@ services:
       - backend
     stdin_open: true
     tty: true
-    
-    
+volumes:
+  pg-data:
