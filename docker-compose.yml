@@ -35,3 +35,8 @@ services:
     tty: true
 volumes:
   pg-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/ridwan/docker-data
