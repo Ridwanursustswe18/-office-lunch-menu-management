@@ -11,7 +11,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - /home/ridwan/docker-data:/var/lib/postgresql/data
+      - ./db-data:/var/lib/postgresql/data
   backend:
     build: ./backend
     ports:
@@ -21,8 +21,7 @@ services:
     tty: true  
     environment:
       DATABASE_URL: postgres://myuser:mypassword@postgres:5432/daily_lunch_menu
-    volumes:
-      - ./backend:/app    
+    
   frontend:
     build:
       context: ./frontend
@@ -33,6 +32,5 @@ services:
       - backend
     stdin_open: true
     tty: true
-    volumes:
-      - ./frontend:/app
+    
     
