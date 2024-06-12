@@ -8,8 +8,9 @@ const port = process.env.BACKEND_PORT;
 app.use(bodyParser.json());
 app.use(cors()); 
 app.use(express.json());
-const userRoutes = require('./routes/userRoutes');
-app.use('/api/users', userRoutes);
+const {userRouter,loginRouter} = require('./routes/userRoutes');
+app.use('/api/users', userRouter);
+app.use('/api/users/login',loginRouter);
 app.get('/', async (req, res) => {
   try {
     res.send('Database Connected Successfully');
